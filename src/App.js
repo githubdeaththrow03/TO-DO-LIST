@@ -67,24 +67,33 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Tasks</h1>
-      <input
-        type="text"
-        placeholder="Enter task"
-        value={task}
-        onChange={(event) => setTask(event.target.value)}
-        onKeyDown={handleKeyPress}
-      />
-      <button onClick={addTask}>Add Tasks</button>
-      <ul>
+    <div className="App container text-center">
+      <h1 className='display-1'>Tasks</h1>
+      <div className='d-flex justify-content-center gap-1'>
+        <input type="text" placeholder="Enter task" value={task} onChange={(event) => setTask(event.target.value)} onKeyDown={handleKeyPress}/>
+        <button onClick={addTask} className='btn btn-primary'>Add Tasks</button>
+      </div>
+      <ul className='mt-5'>
         {tasks.map(task => (
-          <div key={task.id}>
-            <li>{task.task} - {task.completed ? 'Completed' : 'Pending'}
-              <button onClick={() => deleteTask(task.id)}>Delete</button>
+          <div key={task.id} className='task-item-container d-flex justify-content-evenly align-items-center'>
+            <li>
+              {task.task} - {task.completed ? 'Completed' : 'Pending'}
             </li>
-            {task.completed ? null : <button onClick={() => completeTask(task.id)}>Set As Complete</button>}
-            {task.completed ? <button onClick={() => pendingTask(task.id)}>Set As Pending</button> : null}
+            <div className='p-1 d-flex gap-1'>
+              {task.completed ? null : (
+                <button onClick={() => completeTask(task.id)} className='btn btn-primary'>
+                  Set As Complete
+                </button>
+              )}
+              {task.completed ? (
+                <button onClick={() => pendingTask(task.id)} className='btn btn-primary'>
+                  Set As Pending
+                </button>
+              ) : null}
+              <button onClick={() => deleteTask(task.id)} className='btn btn-primary'>
+                Delete
+              </button>
+            </div>
           </div>
         ))}
       </ul>
